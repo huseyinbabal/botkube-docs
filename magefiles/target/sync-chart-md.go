@@ -22,7 +22,6 @@ var fileTpl = heredoc.Doc(`
      `)
 
 const (
-	urlLastCommit     = "https://api.github.com/repos/kubeshop/botkube/commits?per_page=1"
 	urlReadmeBySHAFmt = "https://raw.githubusercontent.com/kubeshop/botkube/%s/helm/botkube/README.md"
 	urlValuesBySHAFmt = "https://github.com/kubeshop/botkube/blob/%s/helm/botkube/values.yaml"
 	dstFilePath       = "docs/configuration/helm-chart-parameters.md"
