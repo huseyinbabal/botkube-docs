@@ -59,7 +59,7 @@ jobs:
         with:
           version: latest
         env:
-          BOTKUBE_RELEASE_BRANCH: release-0.14
+          BOTKUBE_RELEASE_BRANCH: release-${{ inputs.version }}
 
       - name: Prettier check
         run: |
