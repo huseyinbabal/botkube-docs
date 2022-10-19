@@ -61,13 +61,16 @@ jobs:
         env:
           BOTKUBE_RELEASE_BRANCH: release-${{ inputs.version }}
 
+      - name: Run docusaurus versoning
+        run: |
+          npm run docusaurus docs:version ${{ inputs.version }} 
+
       - name: Prettier check
         run: |
           npx prettier --write .
 
       - name: Push changes to remote
         run: |
-          npm run docusaurus docs:version ${{ inputs.version }} 
           git add .
           git commit -m "Prepare docs for ${{ inputs.version }} release"
           git push
