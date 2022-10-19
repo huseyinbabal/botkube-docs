@@ -7,11 +7,9 @@ import (
 	"os"
 	"strings"
 
+	"botkube.io/tools/printer"
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/samber/lo"
-	"github.com/tidwall/gjson"
-
-	"botkube.io/tools/printer"
 )
 
 var fileTpl = heredoc.Doc(`
@@ -31,22 +29,20 @@ const (
 )
 
 func SyncChartParams() {
-	printer.Title("Synchronizing Helm chart doc...")
+	botkubeReleaseBranch := os.Getenv("BOTKUBE_RELEASE_BRANCH")
+	printer.Title("Synchronizing Helm chart doc for ...")
 
-	lastCommitJSON := getBody(urlLastCommit)
-	sha := gjson.Get(lastCommitJSON, "0.sha").String()
-
-	url := fmt.Sprintf(urlReadmeBySHAFmt, sha)
+	url := fmt.Sprintf(urlReadmeBySHAFmt, botkubeReleaseBranch)
 	rawREADME := getBody(url)
 
-	url = fmt.Sprintf(urlValuesBySHAFmt, sha)
+	url = fmt.Sprintf(urlValuesBySHAFmt, botkubeReleaseBranch)
 	readme := strings.ReplaceAll(rawREADME, "./values.yaml", url)
 	readme = strings.TrimPrefix(readme, "# BotKube\n") // remove header
 
 	out := fmt.Sprintf(fileTpl, readme)
 	lo.Must0(os.WriteFile(dstFilePath, []byte(out), 0o644))
 
-	printer.Infof("%q updated according to commit %q from BotKube repo", dstFilePath, sha[:5])
+	printer.Infof("%q updated according to release branch %q from BotKube repo", dstFilePath, botkubeReleaseBranch)
 }
 
 func getBody(url string) string {
