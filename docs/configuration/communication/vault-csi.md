@@ -4,7 +4,7 @@ title: "Tokens from Vault via CSI driver"
 sidebar_position: 1
 ---
 
-This tutorial shows how to install BotKube which takes the configuration from Vault instance.
+This tutorial shows how to install Botkube which takes the configuration from Vault instance.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ This tutorial shows how to install BotKube which takes the configuration from Va
 
 ## Steps
 
-This instruction guides you through the installation of BotKube and Vault on a Kubernetes cluster and configuring them together.
+This instruction guides you through the installation of Botkube and Vault on a Kubernetes cluster and configuring them together.
 
 1. Install Vault with CSI enabled:
 
@@ -139,8 +139,7 @@ This instruction guides you through the installation of BotKube and Vault on a K
    ENDOFFILE
    ```
 
-6. Install BotKube:
-   <!--- TODO(https://github.com/kubeshop/botkube/issues/595): replace the version with v0.13.0 once released -->
+6. Install Botkube:
 
    :::note
    You need to clone the https://github.com/kubeshop/botkube first.
@@ -148,7 +147,6 @@ This instruction guides you through the installation of BotKube and Vault on a K
 
    ```bash
    helm install botkube --namespace default \
-   --set image.tag=v9.99.9-dev \
    -f /tmp/values.yaml \
    ./helm/botkube
    ```
